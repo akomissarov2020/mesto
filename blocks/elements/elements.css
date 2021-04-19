@@ -1,0 +1,12 @@
+.elements {
+}
+
+@media screen and (max-width: 1280px) {
+  .elements {
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .elements {
+  }
+}

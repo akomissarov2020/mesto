@@ -1,0 +1,12 @@
+.page__header {
+}
+
+@media screen and (max-width: 1280px) {
+  .page__header {
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .page__header {
+  }
+}

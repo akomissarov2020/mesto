@@ -1,0 +1,12 @@
+.page {
+}
+
+@media screen and (max-width: 1280px) {
+  .page {
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .page {
+  }
+}

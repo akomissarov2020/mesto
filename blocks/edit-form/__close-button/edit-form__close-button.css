@@ -1,0 +1,12 @@
+.edit-form__close-button {
+}
+
+@media screen and (max-width: 1280px) {
+  .edit-form__close-button {
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .edit-form__close-button {
+  }
+}

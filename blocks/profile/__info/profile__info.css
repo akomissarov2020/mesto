@@ -1,0 +1,12 @@
+.profile__info {
+}
+
+@media screen and (max-width: 1280px) {
+  .profile__info {
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .profile__info {
+  }
+}

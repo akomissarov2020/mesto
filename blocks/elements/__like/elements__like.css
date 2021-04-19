@@ -1,0 +1,12 @@
+.elements__like {
+}
+
+@media screen and (max-width: 1280px) {
+  .elements__like {
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .elements__like {
+  }
+}
