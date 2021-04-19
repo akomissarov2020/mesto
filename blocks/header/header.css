@@ -1,4 +1,5 @@
 .header {
+  border-bottom: 1px solid var(--decoration);
 }
 
 @media screen and (max-width: 1280px) {

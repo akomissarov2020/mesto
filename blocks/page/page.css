@@ -1,4 +1,7 @@
 .page {
+  max-width: 1280px;
+  margin: 0 auto;
+  background-color: var(--dark-bg);
 }
 
 @media screen and (max-width: 1280px) {

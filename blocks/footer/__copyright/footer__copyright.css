@@ -1,4 +1,5 @@
 .footer__copyright {
+  color: var(--footer-text);
 }
 
 @media screen and (max-width: 1280px) {
