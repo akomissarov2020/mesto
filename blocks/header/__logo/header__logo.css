@@ -1,7 +1,17 @@
 .header__logo {
+  width: 142px;
+  height: 33px;
   display: block;
   text-decoration: none;
   margin-bottom: 41px;
+  background: url(../../../images/logo.svg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  transition: opacity 0.2s ease-in;
+}
+
+.header__logo:hover {
+  opacity: 0.8;
 }
 
 @media screen and (max-width: 1280px) {
@@ -11,5 +21,9 @@
 
 @media screen and (max-width: 320px) {
   .header__logo {
+    width: 109px;
+    height: 25px;
+    margin-left: 27px;
+    margin-bottom: 32px;
   }
 }
