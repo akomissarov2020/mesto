@@ -1,4 +1,17 @@
 .elements__like {
+  width: 22px;
+  height: 19px;
+  background-image: url(../../../images/like.svg);
+  background-repeat: no-repeat;
+  background-size: contain;
+  align-self: center;
+  transition: opacity 0.2s ease-in;
+}
+
+
+.elements__like:hover {
+  opacity: 0.5;
+  cursor: pointer;
 }
 
 @media screen and (max-width: 1280px) {
