@@ -9,13 +9,3 @@
   border-bottom: 1px solid #000000;
   padding-bottom: 13px;
 }
-
-@media screen and (max-width: 1280px) {
-  .popup__title-field {
-  }
-}
-
-@media screen and (max-width: 320px) {
-  .popup__title-field {
-  }
-}

@@ -9,14 +9,3 @@
   justify-content: center;
   background-color: var(--overlay-bg);
 }
-
-@media screen and (max-width: 1280px) {
-  .popup {
-  }
-}
-
-@media screen and (max-width: 320px) {
-  .popup {
-
-  }
-}

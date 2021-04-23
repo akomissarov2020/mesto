@@ -2,13 +2,3 @@
   background-color: var(--light-bg);
   border-radius: 10px;
 }
-
-@media screen and (max-width: 1280px) {
-  .elements__element {
-  }
-}
-
-@media screen and (max-width: 320px) {
-  .elements__element {
-  }
-}

@@ -8,18 +8,7 @@
   transition: opacity 0.2s ease-in;
 }
 
-
 .elements__like:hover {
   opacity: 0.5;
   cursor: pointer;
-}
-
-@media screen and (max-width: 1280px) {
-  .elements__like {
-  }
-}
-
-@media screen and (max-width: 320px) {
-  .elements__like {
-  }
 }

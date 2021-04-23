@@ -3,13 +3,3 @@
   height: auto;
   
 }
-
-@media screen and (max-width: 1280px) {
-  .elements__image {
-  }
-}
-
-@media screen and (max-width: 320px) {
-  .elements__image {
-  }
-}
