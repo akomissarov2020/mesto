@@ -1,6 +1,9 @@
 :root {
   --dark-bg: #000000;
+  --overlay-bg: rgb(0, 0, 0, 0.5);
+  --light-bg: #ffffff;
   --decoration: #545454;
-  --text: #000000;
+  --text: #ffffff;
+  --black-text: #000000;
   --footer-text: #545454;
 }
