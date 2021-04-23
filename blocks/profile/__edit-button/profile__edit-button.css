@@ -7,13 +7,15 @@
   background-position-y: center;
   border: 1px #ffffff solid;
   transition: opacity 0.2s ease-in;
-  align-self: flex-end;
+  align-self: center;
+  cursor: pointer;
+  outline: none;
 }
 
 
 .profile__edit-button:hover {
   opacity: 0.6;
-  cursor: pointer;
+  
 }
 
 @media screen and (max-width: 770px) {
