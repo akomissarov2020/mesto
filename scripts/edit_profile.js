@@ -5,6 +5,8 @@ let profileTitle = document.querySelector(".profile__title");
 let popup = document.querySelector(".popup");
 let closePopupButton = document.querySelector(".popup__close-button");
 let savePopupButton = document.querySelector(".popup__save-button");
+
+let formElement = document.querySelector(".popup__container");
 let nameInput = document.querySelector(".popup__name-field");
 let titleInput = document.querySelector(".popup__title-field");
 
@@ -16,32 +18,40 @@ editButton.addEventListener("click", function(){
   titleInput.setAttribute("value", title);
 });
 
-savePopupButton.addEventListener("click", function(){
+function updateProfile() {
   let name = nameInput.value.trim();
   let title = titleInput.value.trim();
   profileName.textContent = name;
   profileTitle.textContent = title;
-  popup.setAttribute("style", "display:none");
-});
+}
 
-nameInput.addEventListener("keyup", function(event){
-  if (event.keyCode === 13) {
-    let name = nameInput.value.trim();
-    let title = titleInput.value.trim();
-    profileName.textContent = name;
-    profileTitle.textContent = title;
-  }
-});
+// Нашел фрагмент кода в брифе, когда уже стал проверять,
+// я не знал, что можно сделать по событию submit для формы сделать.
+// Поэтому для каждого варианта события добавил отдельный обработчик.
 
-titleInput.addEventListener("keyup", function(event){
-  if (event.keyCode === 13) {
-    let name = nameInput.value.trim();
-    let title = titleInput.value.trim();
-    profileName.textContent = name;
-    profileTitle.textContent = title;
-  }
-});
+// savePopupButton.addEventListener("click", function(){
+//   updateProfile();
+//   popup.setAttribute("style", "display:none");
+// });
+
+// nameInput.addEventListener("keyup", function(event){
+//   if (event.keyCode === 13) {
+//     updateProfile();
+//   }
+// });
+
+// titleInput.addEventListener("keyup", function(event){
+//   if (event.keyCode === 13) {
+//     updateProfile();
+//   }
+// });
 
 closePopupButton.addEventListener("click", function(){
   popup.setAttribute("style", "display:none");
+});
+
+formElement.addEventListener('submit', function(event){
+    event.preventDefault();
+    updateProfile();
+    popup.setAttribute("style", "display:none");
 });
