@@ -4,9 +4,6 @@
   display: block;
   text-decoration: none;
   margin-bottom: 41px;
-  background: url(../../../images/logo.svg);
-  background-repeat: no-repeat;
-  background-size: cover;
   transition: opacity 0.2s ease-in;
 }
 
