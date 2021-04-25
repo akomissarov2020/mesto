@@ -8,4 +8,15 @@
   border: none;
   border-bottom: 1px solid var(--popup-field);
   padding-bottom: 13px;
+  margin-bottom: 30px;
+}
+
+.form__field:last-of-type {
+  margin-bottom: 48px;
+}
+
+@media screen and (max-width: 320px) {
+  .form__field:last-of-type {
+    margin-bottom: 45px;
+  }
 }
