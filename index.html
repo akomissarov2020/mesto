@@ -78,13 +78,15 @@
     </footer>
 
     <div class="popup">
-      <form class="popup__container" name="edit_profile">
-        <h2 class="popup__title">Редактировать профайл</h2>
-        <input type="text" class="popup__field" placeholder="Имя" name="name">
-        <input type="text" class="popup__field" placeholder="О себе" name="title">
-        <button type="submit" class="popup__save-button">Сохранить</button>
+      <div class="popup__container">
         <button type="button" class="popup__close-button"></button>
-      </form>
+        <form class="form" name="edit_profile">
+          <h2 class="form__title">Редактировать профайл</h2>
+          <input type="text" class="form__field" placeholder="Имя" name="name">
+          <input type="text" class="form__field" placeholder="О себе" name="title">
+          <button type="submit" class="form__save-button">Сохранить</button>
+        </form>
+      </div>
     </div>
 
     <script src="./scripts/edit_profile.js"></script>
