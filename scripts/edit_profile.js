@@ -7,8 +7,8 @@ let closePopupButton = document.querySelector(".popup__close-button");
 let savePopupButton = document.querySelector(".popup__save-button");
 
 let formElement = document.querySelector(".popup__container");
-let nameInput = document.querySelector("[name='edit_profile__name']");
-let titleInput = document.querySelector("[name='edit_profile__title']");
+let nameInput = document.querySelector("[name='edit-profile-name']");
+let titleInput = document.querySelector("[name='edit-profile-title']");
 
 function popupOpen() {
   popup.classList.add("popup_opened");
