@@ -7,8 +7,8 @@ let closePopupButton = document.querySelector(".popup__close-button");
 let savePopupButton = document.querySelector(".popup__save-button");
 
 let formElement = document.querySelector(".popup__container");
-let nameInput = document.querySelector(".popup__name-field");
-let titleInput = document.querySelector(".popup__title-field");
+let nameInput = document.querySelector(".popup__field[name=name]");
+let titleInput = document.querySelector(".popup__field[name=title]");
 
 editButton.addEventListener("click", function(){
   popup.setAttribute("style", "display:flex");
