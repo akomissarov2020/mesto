@@ -28,7 +28,7 @@ function updateProfile() {
 function submit(event) {
     event.preventDefault();
     updateProfile();
-    popup.setAttribute("style", "display:none");
+    popup.classList.remove("popup_opened");
 }
 
 function popupClose() {
