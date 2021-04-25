@@ -7,16 +7,16 @@ let closePopupButton = document.querySelector(".popup__close-button");
 let savePopupButton = document.querySelector(".popup__save-button");
 
 let formElement = document.querySelector(".popup__container");
-let nameInput = document.querySelector(".popup__field[name=name]");
-let titleInput = document.querySelector(".popup__field[name=title]");
+let nameInput = document.querySelector("[name='edit_profile__name']");
+let titleInput = document.querySelector("[name='edit_profile__title']");
 
-editButton.addEventListener("click", function(){
-  popup.setAttribute("style", "display:flex");
+function popupOpen() {
+  popup.classList.add("popup_opened");
   let name = profileName.textContent.trim();
   let title = profileTitle.textContent.trim();
-  nameInput.setAttribute("value", name);
-  titleInput.setAttribute("value", title);
-});
+  nameInput.value = name;
+  titleInput.value = title;
+}
 
 function updateProfile() {
   let name = nameInput.value.trim();
@@ -25,33 +25,16 @@ function updateProfile() {
   profileTitle.textContent = title;
 }
 
-// Нашел фрагмент кода в брифе, когда уже стал проверять,
-// я не знал, что можно сделать по событию submit для формы сделать.
-// Поэтому для каждого варианта события добавил отдельный обработчик.
-
-// savePopupButton.addEventListener("click", function(){
-//   updateProfile();
-//   popup.setAttribute("style", "display:none");
-// });
-
-// nameInput.addEventListener("keyup", function(event){
-//   if (event.keyCode === 13) {
-//     updateProfile();
-//   }
-// });
-
-// titleInput.addEventListener("keyup", function(event){
-//   if (event.keyCode === 13) {
-//     updateProfile();
-//   }
-// });
-
-closePopupButton.addEventListener("click", function(){
-  popup.setAttribute("style", "display:none");
-});
-
-formElement.addEventListener('submit', function(event){
+function submit(event) {
     event.preventDefault();
     updateProfile();
     popup.setAttribute("style", "display:none");
-});
+}
+
+function popupClose() {
+  popup.classList.remove("popup_opened");
+}
+
+editButton.addEventListener("click", popupOpen);
+closePopupButton.addEventListener("click", popupClose);
+formElement.addEventListener('submit', submit);
