@@ -1,19 +1,19 @@
-@-webkit-keyframes fadeIn {
+@-webkit-keyframes fadeInAnimation {
   from { opacity: 0; }
     to { opacity: 1; }
 }
 
-@keyframes fadeIn {
+@keyframes fadeInAnimation {
   from { opacity: 0; }
     to { opacity: 1; }
 }
 
-@-webkit-keyframes fadeOut {
+@-webkit-keyframes fadeOutAnimation {
   from { opacity: 1; }
     to { opacity: 0; }
 }
 
-@keyframes fadeOut {
+@keyframes fadeOutAnimation {
   from { opacity: 1; }
     to { opacity: 0; }
 }

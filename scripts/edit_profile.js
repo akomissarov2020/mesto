@@ -138,13 +138,13 @@ editButton.addEventListener("click", popupOpenEditProfile);
 addButton.addEventListener("click", popupOpenAddPlace);
 
 document.addEventListener('animationstart', function (evt) {
-  if (evt.animationName === 'fadeIn') {
+  if (evt.animationName === 'fadeInAnimation') {
       evt.target.classList.add('popup_opened');
   }
 });
 
 document.addEventListener('animationend', function (evt) {
-  if (evt.animationName === 'fadeOut') {
+  if (evt.animationName === 'fadeOutAnimation') {
       evt.target.classList.remove('popup_closed');
    }
 });
