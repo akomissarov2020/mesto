@@ -1,0 +1,5 @@
+.popup_closed {
+  display: flex;
+  -webkit-animation: fadeOut 1s ease-in;
+  animation: fadeOut 1s ease-in;
+}

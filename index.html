@@ -27,58 +27,14 @@
           <button type="button" class="profile__add-button"></button>
         </section>
         <section>
-          <ul class="elements page__elements">
-            <li class="elements__element">
-              <img src="./images/kirill-pershin-1088404-unsplash.png" class="elements__image" alt="Карачаевск">
-              <div class="elements__title">
-                <h3 class="elements__text">Карачаевск</h3>
-                <button type="button" class="elements__like"></button>  
-              </div>
-              <button type="button" class="elements__trash-button"></button>
-            </li>
-            <li class="elements__element">
-              <img src="./images/kirill-pershin-1404681-unsplash.png" class="elements__image" alt="Гора Эльбрус">
-              <div class="elements__title">
-                <h3 class="elements__text">Гора Эльбрус</h3>
-                <button type="button" class="elements__like"></button>  
-              </div>
-            </li>
-            <li class="elements__element">
-              <img src="./images/kirill-pershin-1556355-unsplash.png" class="elements__image" alt="Домбай">
-              <div class="elements__title">
-                <h3 class="elements__text">Домбай</h3>
-                <button type="button" class="elements__like"></button>  
-              </div>
-            </li>
-            <li class="elements__element">
-              <img  src="./images/kirill-pershin-1404681-unsplash.png"  class="elements__image" alt="Гора Эльбрус">
-              <div class="elements__title">
-                <h3 class="elements__text">Гора Эльбрус</h3>
-                <button type="button" class="elements__like"></button>  
-              </div>
-            </li>
-            <li class="elements__element">
-              <img src="./images/kirill-pershin-1556355-unsplash.png" class="elements__image" alt="Домбай">
-              <div class="elements__title">
-                <h3 class="elements__text">Домбай</h3>
-                <button type="button" class="elements__like"></button>  
-              </div>
-            </li>
-            <li class="elements__element">
-              <img src="./images/kirill-pershin-1088404-unsplash.png" class="elements__image" alt="Карачаево-Черкеcсия">
-              <div class="elements__title">
-                <h3 class="elements__text">Карачаево-Черкеcсия</h3>
-                <button type="button" class="elements__like"></button>  
-              </div>
-            </li>
-          </ul>
+          <ul class="elements page__elements"></ul>
         </section>
     </main>
     <footer class="footer page__footer">
         <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
     </footer>
 
-    <div class="popup">
+    <div class="popup popup_type_edit-profile">
       <div class="popup__container">
         <button type="button" class="popup__close-button"></button>
         <form class="form" name="edit-profile">
@@ -89,6 +45,37 @@
         </form>
       </div>
     </div>
+
+    <div class="popup popup_type_add-place">
+      <div class="popup__container">
+        <button type="button" class="popup__close-button"></button>
+        <form class="form" name="add-place">
+          <h2 class="form__title">Новое место</h2>
+          <input type="text" class="form__field" placeholder="Название" name="add-place-name">
+          <input type="text" class="form__field" placeholder="Ссылка на картинку" name="add-place-link">
+          <button type="submit" class="form__save-button">Создать</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="popup popup_type_view">
+      <div class="popup__container popup__container_image">
+        <button type="button" class="popup__close-button"></button>
+        <img src="" alt="" class="popup__image">
+        <h3 class="popup__image-text"></h3>
+      </div>
+    </div>
+
+    <template id="place">
+      <li class="elements__element">
+        <img src="" class="elements__image" alt="">
+        <div class="elements__title">
+          <h3 class="elements__text"></h3>
+          <button type="button" class="elements__like"></button>  
+        </div>
+        <button type="button" class="elements__trash-button"></button>
+      </li>
+    </template>
 
     <script src="./scripts/edit_profile.js"></script>
 
