@@ -12,6 +12,7 @@ const titleInput = document.querySelector("[name='edit-profile-title']");
 
 function initPopup(popup, onSubmit=false, resetForm=false) {
   const closeButton = popup.querySelector(".popup__close-button");
+  popup.classList.remove("popup_hidden");
   closeButton.addEventListener("click", () => {
     closePopup(popup, resetForm=resetForm);
   });
