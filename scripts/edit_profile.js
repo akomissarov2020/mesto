@@ -53,7 +53,6 @@ const createPlace = (item) => {
   });
 
   placeItem.querySelector(".elements__image").addEventListener("click", (evt) => {
-
     let imageSrc = evt.target.src;
     let element = evt.target.closest(".elements__element");
     let popup = document.querySelector(".popup_type_view");
@@ -75,43 +74,30 @@ const addPlace = (item) => {
   document.querySelector(".elements").append(placeItem);
 };
 
-initialCards.forEach(addPlace);
-
-function popupOpenEditProfile() {
-  popupEditProfile.classList.add("popup_opened");
-  const closeButton = popupEditProfile.querySelector(".popup__close-button");
+function openPopup(popup, onSubmit) {
+  popup.classList.add("popup_opened");
+  const closeButton = popup.querySelector(".popup__close-button");
   closeButton.addEventListener("click", () => {
-    popupEditProfile.classList.remove("popup_opened");
-    popupEditProfile.classList.add("popup_closed");
+    popup.classList.remove("popup_opened");
+    popup.classList.add("popup_closed");
   });
-  const formElement = popupEditProfile.querySelector(".form");
-  formElement.addEventListener('submit', submit);
+  const formElement = popup.querySelector(".form");
+  formElement.addEventListener('submit', onSubmit);
+}
 
+function openEditProfile() {
+  openPopup(popupEditProfile, submitProfileEdit);
   let name = profileName.textContent.trim();
   let title = profileTitle.textContent.trim();
   nameInput.value = name;
   titleInput.value = title;
 }
 
-function popupOpenAddPlace() {
-  popupAddPlace.classList.add("popup_opened");
-  const closeButton = popupAddPlace.querySelector(".popup__close-button");
-  closeButton.addEventListener("click", () => {
-    popupAddPlace.classList.remove("popup_opened");
-    popupAddPlace.classList.add("popup_closed");
-  });
-  const formElement = popupAddPlace.querySelector(".form");
-  formElement.addEventListener('submit', submitPlace);
+function openAddPlace() {
+  openPopup(popupAddPlace, submitPlaceAdding);
 }
 
-function updateProfile() {
-  let name = nameInput.value.trim();
-  let title = titleInput.value.trim();
-  profileName.textContent = name;
-  profileTitle.textContent = title;
-}
-
-function submitPlace(event) {
+function submitPlaceAdding(event) {
   event.preventDefault();
   let form = event.target.closest(".form");
   let placeName = form.querySelector("[name='add-place-name']");
@@ -128,22 +114,30 @@ function submitPlace(event) {
   placeLink.value = "";
 }
 
-function submit(event) {
+function updateProfile() {
+  let name = nameInput.value.trim();
+  let title = titleInput.value.trim();
+  profileName.textContent = name;
+  profileTitle.textContent = title;
+}
+
+function submitProfileEdit(event) {
     event.preventDefault();
     updateProfile();
     popupEditProfile.classList.remove("popup_opened");
     popupEditProfile.classList.add("popup_closed"); 
 }
 
-editButton.addEventListener("click", popupOpenEditProfile);
-addButton.addEventListener("click", popupOpenAddPlace);
+initialCards.forEach(addPlace);
+
+editButton.addEventListener("click", openEditProfile);
+addButton.addEventListener("click", openAddPlace);
 
 document.addEventListener('animationstart', function (evt) {
   if (evt.animationName === 'fadeinanimation') {
       evt.target.classList.add('popup_opened');
   }
 });
-
 document.addEventListener('animationend', function (evt) {
   if (evt.animationName === 'fadeoutanimation') {
       evt.target.classList.remove('popup_closed');
