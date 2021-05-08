@@ -110,8 +110,7 @@ function submitPlaceAdding(event) {
   document.querySelector(".elements").prepend(placeItem);
   popupAddPlace.classList.remove("popup_opened");
   popupAddPlace.classList.add("popup_closed");
-  placeName.value = "";
-  placeLink.value = "";
+  form.reset();
 }
 
 function updateProfile() {
