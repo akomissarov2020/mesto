@@ -62,7 +62,6 @@ function openPopup(popup) {
 
 function closePopup(popup, resetForm=false) {
   popup.classList.remove("popup_opened");
-  popup.classList.add("popup_closed");
   if (resetForm) {
     const form = popup.querySelector(".form");
     form.reset();
@@ -112,9 +111,3 @@ initPopup(popupAddPlace, onSubmit=submitPlaceAdding, resetForm=true);
 
 editButton.addEventListener("click", openEditProfile);
 addButton.addEventListener("click", openAddPlace);
-
-document.addEventListener('animationend', function (evt) {
-  if (evt.animationName === 'fadeoutanimation') {
-      evt.target.classList.remove('popup_closed');
-   }
-});
