@@ -60,10 +60,8 @@ function openPopup(popup, onSubmit) {
 
 function openEditProfile() {
   openPopup(popupEditProfile, submitProfileEdit);
-  const name = profileName.textContent.trim();
-  const title = profileTitle.textContent.trim();
-  nameInput.value = name;
-  titleInput.value = title;
+  nameInput.value = profileName.textContent.trim();
+  titleInput.value = profileTitle.textContent.trim();
 }
 
 function openAddPlace() {
@@ -87,10 +85,8 @@ function submitPlaceAdding(event) {
 }
 
 function updateProfile() {
-  const name = nameInput.value.trim();
-  const title = titleInput.value.trim();
-  profileName.textContent = name;
-  profileTitle.textContent = title;
+  profileName.textContent = nameInput.value.trim();
+  profileTitle.textContent = titleInput.value.trim();
 }
 
 function submitProfileEdit(event) {
