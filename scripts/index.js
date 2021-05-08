@@ -10,11 +10,10 @@ const popupImageView = document.querySelector(".popup_type_view");
 const nameInput = document.querySelector("[name='edit-profile-name']");
 const titleInput = document.querySelector("[name='edit-profile-title']");
 
-function initPopup(popup, onSubmit=false) {
+function initPopup(popup, onSubmit=false, resetForm=false) {
   const closeButton = popup.querySelector(".popup__close-button");
   closeButton.addEventListener("click", () => {
-    popup.classList.remove("popup_opened");
-    popup.classList.add("popup_closed");
+    closePopup(popup, resetForm=resetForm);
   });
   if (onSubmit) {
     const formElement = popup.querySelector(".form");
@@ -47,7 +46,7 @@ const createPlace = (item) => {
     const text = popup.querySelector(".popup__image-text");
     image.src =  evt.target.src;
     text.textContent = imageTitle;
-    popup.classList.add("popup_opened");
+    openPopup(popup);
   });
   return placeItem;
 }
@@ -59,6 +58,15 @@ const addPlace = (item) => {
 
 function openPopup(popup) {
   popup.classList.add("popup_opened");
+}
+
+function closePopup(popup, resetForm=false) {
+  popup.classList.remove("popup_opened");
+  popup.classList.add("popup_closed");
+  if (resetForm) {
+    const form = popup.querySelector(".form");
+    form.reset();
+  }
 }
 
 function openEditProfile() {
@@ -82,9 +90,7 @@ function submitPlaceAdding(event) {
   };
   const placeItem = createPlace(item);
   document.querySelector(".elements").prepend(placeItem);
-  popupAddPlace.classList.remove("popup_opened");
-  popupAddPlace.classList.add("popup_closed");
-  form.reset();
+  closePopup(popupAddPlace, resetForm=true);
 }
 
 function updateProfile() {
@@ -95,15 +101,14 @@ function updateProfile() {
 function submitProfileEdit(event) {
     event.preventDefault();
     updateProfile();
-    popupEditProfile.classList.remove("popup_opened");
-    popupEditProfile.classList.add("popup_closed"); 
+    closePopup(popupEditProfile);
 }
 
 initialCards.forEach(addPlace);
 
 initPopup(popupImageView);
 initPopup(popupEditProfile, onSubmit=submitProfileEdit);
-initPopup(popupAddPlace, onSubmit=submitPlaceAdding);
+initPopup(popupAddPlace, onSubmit=submitPlaceAdding, resetForm=true);
 
 editButton.addEventListener("click", openEditProfile);
 addButton.addEventListener("click", openAddPlace);
