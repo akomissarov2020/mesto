@@ -5,7 +5,6 @@ const profileTitle = document.querySelector(".profile__title");
 
 const popupEditProfile = document.querySelector(".popup_type_edit-profile");
 const popupAddPlace = document.querySelector(".popup_type_add-place");
-const savePopupButton = document.querySelector(".popup__save-button");
 
 const nameInput = document.querySelector("[name='edit-profile-name']");
 const titleInput = document.querySelector("[name='edit-profile-title']");
@@ -13,11 +12,13 @@ const titleInput = document.querySelector("[name='edit-profile-title']");
 const createPlace = (item) => {
   const placeTemplate = document.querySelector("#place").content;
   const placeItem = placeTemplate.querySelector(".elements__element").cloneNode(true);
-  placeItem.querySelector(".elements__text").textContent = item.name;
-  placeItem.querySelector(".elements__image").alt = item.name;
-  placeItem.querySelector(".elements__image").src = item.link;
-
-  placeItem.querySelector(".elements__like").addEventListener("click", (evt) => {
+  const image = placeItem.querySelector(".elements__image");
+  const text = placeItem.querySelector(".elements__text");
+  const likeButton = placeItem.querySelector(".elements__like");
+  image.alt = item.name;
+  image.src = item.link;
+  text.textContent = item.name;
+  likeButton.addEventListener("click", (evt) => {
     evt.target.classList.toggle("elements__like_active");
   });
 
@@ -26,14 +27,15 @@ const createPlace = (item) => {
   });
 
   placeItem.querySelector(".elements__image").addEventListener("click", (evt) => {
-    const imageSrc = evt.target.src;
     const element = evt.target.closest(".elements__element");
     const popup = document.querySelector(".popup_type_view");
-    popup.querySelector(".popup__image").src = imageSrc;;
-    const imageTitle = element.querySelector(".elements__title").textContent.trim();
-    popup.querySelector(".popup__image-text").textContent = imageTitle;
-    popup.classList.add("popup_opened");
     const closeButton = popup.querySelector(".popup__close-button");
+    const imageTitle = element.querySelector(".elements__title").textContent.trim();
+    const image = popup.querySelector(".popup__image");
+    const text = popup.querySelector(".popup__image-text");
+    image.src =  evt.target.src;
+    text.textContent = imageTitle;
+    popup.classList.add("popup_opened");
     closeButton.addEventListener("click", () => {
       popup.classList.remove("popup_opened");
       popup.classList.add("popup_closed");
@@ -48,13 +50,13 @@ const addPlace = (item) => {
 };
 
 function openPopup(popup, onSubmit) {
-  popup.classList.add("popup_opened");
   const closeButton = popup.querySelector(".popup__close-button");
+  const formElement = popup.querySelector(".form");
+  popup.classList.add("popup_opened");
   closeButton.addEventListener("click", () => {
     popup.classList.remove("popup_opened");
     popup.classList.add("popup_closed");
   });
-  const formElement = popup.querySelector(".form");
   formElement.addEventListener('submit', onSubmit);
 }
 
