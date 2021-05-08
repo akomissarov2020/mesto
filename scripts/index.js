@@ -5,17 +5,21 @@ const profileTitle = document.querySelector(".profile__title");
 
 const popupEditProfile = document.querySelector(".popup_type_edit-profile");
 const popupAddPlace = document.querySelector(".popup_type_add-place");
+const popupImageView = document.querySelector(".popup_type_view");
 
 const nameInput = document.querySelector("[name='edit-profile-name']");
 const titleInput = document.querySelector("[name='edit-profile-title']");
 
-function initImageViewPopup() {
-  const popup = document.querySelector(".popup_type_view");
+function initPopup(popup, onSubmit=false) {
   const closeButton = popup.querySelector(".popup__close-button");
   closeButton.addEventListener("click", () => {
     popup.classList.remove("popup_opened");
     popup.classList.add("popup_closed");
   });
+  if (onSubmit) {
+    const formElement = popup.querySelector(".form");
+    formElement.addEventListener('submit', onSubmit);
+  }
 }
 
 const createPlace = (item) => {
@@ -53,25 +57,18 @@ const addPlace = (item) => {
   document.querySelector(".elements").append(placeItem);
 };
 
-function openPopup(popup, onSubmit) {
-  const closeButton = popup.querySelector(".popup__close-button");
-  const formElement = popup.querySelector(".form");
+function openPopup(popup) {
   popup.classList.add("popup_opened");
-  closeButton.addEventListener("click", () => {
-    popup.classList.remove("popup_opened");
-    popup.classList.add("popup_closed");
-  });
-  formElement.addEventListener('submit', onSubmit);
 }
 
 function openEditProfile() {
-  openPopup(popupEditProfile, submitProfileEdit);
+  openPopup(popupEditProfile);
   nameInput.value = profileName.textContent.trim();
   titleInput.value = profileTitle.textContent.trim();
 }
 
 function openAddPlace() {
-  openPopup(popupAddPlace, submitPlaceAdding);
+  openPopup(popupAddPlace);
 }
 
 function submitPlaceAdding(event) {
@@ -104,16 +101,13 @@ function submitProfileEdit(event) {
 
 initialCards.forEach(addPlace);
 
-initImageViewPopup();
+initPopup(popupImageView);
+initPopup(popupEditProfile, onSubmit=submitProfileEdit);
+initPopup(popupAddPlace, onSubmit=submitPlaceAdding);
 
 editButton.addEventListener("click", openEditProfile);
 addButton.addEventListener("click", openAddPlace);
 
-document.addEventListener('animationstart', function (evt) {
-  if (evt.animationName === 'fadeinanimation') {
-      evt.target.classList.add('popup_opened');
-  }
-});
 document.addEventListener('animationend', function (evt) {
   if (evt.animationName === 'fadeoutanimation') {
       evt.target.classList.remove('popup_closed');
