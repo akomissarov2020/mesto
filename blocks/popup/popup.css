@@ -1,5 +1,5 @@
-.popup { 
-  display: none;
+.popup {
+  display: flex;
   position: fixed;
   top: 0;
   left: 0;
@@ -8,4 +8,8 @@
   align-items: center;
   justify-content: center;
   background-color: var(--overlay-bg);
+  z-index:-1;
+  opacity:50;
+  animation: hide .25s;
+  transform: scale(0);
 }

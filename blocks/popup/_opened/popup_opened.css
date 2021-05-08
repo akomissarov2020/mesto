@@ -1,5 +1,7 @@
 .popup_opened {
   display: flex;
-  -webkit-animation: fadeinanimation 1s ease-in;
-  animation: fadeinanimation 1s ease-in;
+  opacity:1;
+  z-index:2;
+  animation: show .2s;
+  transform: scale(1);
 }
