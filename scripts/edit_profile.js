@@ -53,6 +53,7 @@ const createPlace = (item) => {
   });
 
   placeItem.querySelector(".elements__image").addEventListener("click", (evt) => {
+
     let imageSrc = evt.target.src;
     let element = evt.target.closest(".elements__element");
     let popup = document.querySelector(".popup_type_view");
