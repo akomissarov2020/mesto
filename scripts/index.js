@@ -23,6 +23,11 @@ const closePopupByClick = (evt) => {
   }
 };
 
+const closePopupByButton = (evt) => {
+  const popup = evt.target.closest(".popup");
+  closePopup(popup);
+};
+
 const toggleLike = (evt) => {
   evt.target.classList.toggle("elements__like_active");
 };
@@ -35,6 +40,7 @@ const openImage = (evt) => {
   const text = popup.querySelector(".popup__image-text");
   image.src =  evt.target.src;
   text.textContent = imageTitle;
+  initPopup(popup);
   openPopup(popup);
 };
 
@@ -61,12 +67,15 @@ const createPlace = (item) => {
   return placeItem;
 };
 
+const addPlace = (item) => {
+  const placeItem = createPlace(item);
+  document.querySelector(".elements").append(placeItem);
+};
+
 function initPopup(popup, onSubmit=false) {
   const closeButton = popup.querySelector(".popup__close-button");
   popup.classList.remove("popup_hidden");
-  closeButton.addEventListener("click", () => {
-    closePopup(popup);
-  });
+  closeButton.addEventListener("click", closePopupByButton);
   if (onSubmit) {
     enableValidation(popup, onSubmit);
   } 
@@ -74,29 +83,16 @@ function initPopup(popup, onSubmit=false) {
   document.addEventListener('keydown', closePopupByKey);
 }
 
-
-const removePopupListeners = (popup) => {
-  popup.removeEventListener('click', closePopupByClick);
-  document.removeEventListener('keydown', closePopupByKey);
-}
-
-
-
-const addPlace = (item) => {
-  const placeItem = createPlace(item);
-  document.querySelector(".elements").append(placeItem);
-};
-
 function openPopup(popup) {
   popup.classList.add("popup_opened");
 }
 
 function closePopup(popup) {
   popup.classList.remove("popup_opened");
-  const form = popup.querySelector(".form");
-  if (form) {
-    form.reset();
-  }
+  const closeButton = popup.querySelector(".popup__close-button");
+  popup.removeEventListener('click', closePopupByClick);
+  closeButton.removeEventListener("click", closePopupByButton);
+  document.removeEventListener('keydown', closePopupByKey);
 }
 
 function openEditProfile() {
@@ -112,8 +108,5 @@ function openAddPlace() {
 }
 
 initialCards.forEach(addPlace);
-
-initPopup(popupImageView);
-
 editButton.addEventListener("click", openEditProfile);
 addButton.addEventListener("click", openAddPlace);

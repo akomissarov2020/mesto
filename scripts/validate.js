@@ -65,6 +65,7 @@ function submitPlaceAdding(event) {
   };
   const placeItem = createPlace(item);
   document.querySelector(".elements").prepend(placeItem);
+  form.reset();
   closePopup(popupAddPlace);
 }
 
