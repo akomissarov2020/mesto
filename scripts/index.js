@@ -10,11 +10,18 @@ const popupImageView = document.querySelector(".popup_type_view");
 const nameInput = document.querySelector("[name='edit-profile-name']");
 const titleInput = document.querySelector("[name='edit-profile-title']");
 
-function initPopup(popup, onSubmit=false, resetForm=false) {
+const closePopupByKey = (evt) => {
+  if (evt.key === "Escape") {
+    const popup = document.querySelector(".popup_opened");
+    closePopup(popup);
+  }
+};
+
+function initPopup(popup, onSubmit=false) {
   const closeButton = popup.querySelector(".popup__close-button");
   popup.classList.remove("popup_hidden");
   closeButton.addEventListener("click", () => {
-    closePopup(popup, resetForm=resetForm);
+    closePopup(popup);
   });
   if (onSubmit) {
     const formElement = popup.querySelector(".form");
@@ -22,9 +29,10 @@ function initPopup(popup, onSubmit=false, resetForm=false) {
   } 
   popup.addEventListener('click', (evt) => {
     if (evt.target.classList.contains("popup")) {
-      closePopup(popup, resetForm=resetForm);
+      closePopup(popup);
     }
   });
+  document.addEventListener('keydown', closePopupByKey);
 }
 
 const createPlace = (item) => {
@@ -55,7 +63,7 @@ const createPlace = (item) => {
     openPopup(popup);
   });
   return placeItem;
-}
+};
 
 const addPlace = (item) => {
   const placeItem = createPlace(item);
@@ -66,10 +74,10 @@ function openPopup(popup) {
   popup.classList.add("popup_opened");
 }
 
-function closePopup(popup, resetForm=false) {
+function closePopup(popup) {
   popup.classList.remove("popup_opened");
-  if (resetForm) {
-    const form = popup.querySelector(".form");
+  const form = popup.querySelector(".form");
+  if (form) {
     form.reset();
   }
 }
@@ -95,7 +103,7 @@ function submitPlaceAdding(event) {
   };
   const placeItem = createPlace(item);
   document.querySelector(".elements").prepend(placeItem);
-  closePopup(popupAddPlace, resetForm=true);
+  closePopup(popupAddPlace);
 }
 
 function updateProfile() {
@@ -113,7 +121,7 @@ initialCards.forEach(addPlace);
 
 initPopup(popupImageView);
 initPopup(popupEditProfile, onSubmit=submitProfileEdit);
-initPopup(popupAddPlace, onSubmit=submitPlaceAdding, resetForm=true);
+initPopup(popupAddPlace, onSubmit=submitPlaceAdding);
 
 editButton.addEventListener("click", openEditProfile);
 addButton.addEventListener("click", openAddPlace);
