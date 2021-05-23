@@ -7,4 +7,5 @@
   --footer-text: #545454;
   --popup-field: rgba(0, 0, 0, 0.2);
   --decoration: rgba(84, 84, 84, 0.7);
+  --invalid: #FF0000;
 }

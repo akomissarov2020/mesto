@@ -19,7 +19,12 @@ function initPopup(popup, onSubmit=false, resetForm=false) {
   if (onSubmit) {
     const formElement = popup.querySelector(".form");
     formElement.addEventListener('submit', onSubmit);
-  }
+  } 
+  popup.addEventListener('click', (evt) => {
+    if (evt.target.classList.contains("popup")) {
+      closePopup(popup, resetForm=resetForm);
+    }
+  });
 }
 
 const createPlace = (item) => {
