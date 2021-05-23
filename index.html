@@ -37,10 +37,10 @@
     <div class="popup popup_type_edit-profile">
       <div class="popup__container">
         <button type="button" class="popup__close-button"></button>
-        <form class="form" name="edit-profile">
+        <form class="form" name="edit-profile" novalidate>
           <h2 class="form__title">Редактировать профайл</h2>
           <input type="text" class="form__field" placeholder="Имя" name="edit-profile-name" required minlength="2" maxlength="40">
-          <span class="form__error-message edit-profile-name-error">agasgsgsgd asdgasg</span>
+          <span class="form__error-message edit-profile-name-error"></span>
           <input type="text" class="form__field" placeholder="О себе" name="edit-profile-title" required minlength="2" maxlength="200">
           <span class="form__error-message edit-profile-title-error"></span>
           <button type="submit" class="form__save-button">Сохранить</button>
@@ -51,7 +51,7 @@
     <div class="popup popup_type_add-place">
       <div class="popup__container">
         <button type="button" class="popup__close-button"></button>
-        <form class="form" name="add-place">
+        <form class="form" name="add-place" novalidate>
           <h2 class="form__title">Новое место</h2>
           <input type="text" class="form__field" placeholder="Название" name="add-place-name" required minlength="2" maxlength="30">
           <span class="form__error-message add-place-name-error"></span>
@@ -81,8 +81,7 @@
       </li>
     </template>
     <script src="./scripts/cards_data.js"></script>
-    <script src="./scripts/index.js"></script>
     <script src="./scripts/validate.js"></script>
-
+    <script src="./scripts/index.js"></script>
 </body>
 </html>

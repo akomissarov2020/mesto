@@ -17,6 +17,12 @@ const closePopupByKey = (evt) => {
   }
 };
 
+const closePopupByClick = (evt) => {
+  if (evt.target.classList.contains("popup")) {
+    closePopup(evt.target);
+  }
+};
+
 function initPopup(popup, onSubmit=false) {
   const closeButton = popup.querySelector(".popup__close-button");
   popup.classList.remove("popup_hidden");
@@ -24,16 +30,35 @@ function initPopup(popup, onSubmit=false) {
     closePopup(popup);
   });
   if (onSubmit) {
-    const formElement = popup.querySelector(".form");
-    formElement.addEventListener('submit', onSubmit);
+    enableValidation(popup, onSubmit);
   } 
-  popup.addEventListener('click', (evt) => {
-    if (evt.target.classList.contains("popup")) {
-      closePopup(popup);
-    }
-  });
+  popup.addEventListener('click', closePopupByClick);
   document.addEventListener('keydown', closePopupByKey);
 }
+
+const removePopupListeners = (popup) => {
+  popup.removeEventListener('click', closePopupByClick);
+  document.removeEventListener('keydown', closePopupByKey);
+}
+
+const toggleLike = (evt) => {
+  evt.target.classList.toggle("elements__like_active");
+};
+
+const deleteImage = (evt) => {
+  evt.target.closest(".elements__element").remove();
+};
+
+const openImage = (evt) => {
+  const element = evt.target.closest(".elements__element");
+  const imageTitle = element.querySelector(".elements__title").textContent.trim();
+  const popup = document.querySelector(".popup_type_view");
+  const image = popup.querySelector(".popup__image");
+  const text = popup.querySelector(".popup__image-text");
+  image.src =  evt.target.src;
+  text.textContent = imageTitle;
+  openPopup(popup);
+};
 
 const createPlace = (item) => {
   const placeTemplate = document.querySelector("#place").content;
@@ -44,24 +69,9 @@ const createPlace = (item) => {
   image.alt = item.name;
   image.src = item.link;
   text.textContent = item.name;
-  likeButton.addEventListener("click", (evt) => {
-    evt.target.classList.toggle("elements__like_active");
-  });
-
-  placeItem.querySelector(".elements__trash-button").addEventListener("click", (evt) => {
-    evt.target.closest(".elements__element").remove();
-  });
-
-  placeItem.querySelector(".elements__image").addEventListener("click", (evt) => {
-    const element = evt.target.closest(".elements__element");
-    const imageTitle = element.querySelector(".elements__title").textContent.trim();
-    const popup = document.querySelector(".popup_type_view");
-    const image = popup.querySelector(".popup__image");
-    const text = popup.querySelector(".popup__image-text");
-    image.src =  evt.target.src;
-    text.textContent = imageTitle;
-    openPopup(popup);
-  });
+  likeButton.addEventListener("click", toggleLike);
+  placeItem.querySelector(".elements__trash-button").addEventListener("click", deleteImage);
+  placeItem.querySelector(".elements__image").addEventListener("click", openImage);
   return placeItem;
 };
 
@@ -83,45 +93,20 @@ function closePopup(popup) {
 }
 
 function openEditProfile() {
-  openPopup(popupEditProfile);
   nameInput.value = profileName.textContent.trim();
   titleInput.value = profileTitle.textContent.trim();
+  initPopup(popupEditProfile, onSubmit=submitProfileEdit);
+  openPopup(popupEditProfile);
 }
 
 function openAddPlace() {
+  initPopup(popupAddPlace, onSubmit=submitPlaceAdding);
   openPopup(popupAddPlace);
-}
-
-function submitPlaceAdding(event) {
-  event.preventDefault();
-  const form = event.target.closest(".form");
-  const placeName = form.querySelector("[name='add-place-name']");
-  const placeLink = form.querySelector("[name='add-place-link']");
-  const item = {
-    'name': placeName.value.trim(),
-    'link': placeLink.value.trim()
-  };
-  const placeItem = createPlace(item);
-  document.querySelector(".elements").prepend(placeItem);
-  closePopup(popupAddPlace);
-}
-
-function updateProfile() {
-  profileName.textContent = nameInput.value.trim();
-  profileTitle.textContent = titleInput.value.trim();
-}
-
-function submitProfileEdit(event) {
-    event.preventDefault();
-    updateProfile();
-    closePopup(popupEditProfile);
 }
 
 initialCards.forEach(addPlace);
 
 initPopup(popupImageView);
-initPopup(popupEditProfile, onSubmit=submitProfileEdit);
-initPopup(popupAddPlace, onSubmit=submitPlaceAdding);
 
 editButton.addEventListener("click", openEditProfile);
 addButton.addEventListener("click", openAddPlace);
