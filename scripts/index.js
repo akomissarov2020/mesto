@@ -23,30 +23,8 @@ const closePopupByClick = (evt) => {
   }
 };
 
-function initPopup(popup, onSubmit=false) {
-  const closeButton = popup.querySelector(".popup__close-button");
-  popup.classList.remove("popup_hidden");
-  closeButton.addEventListener("click", () => {
-    closePopup(popup);
-  });
-  if (onSubmit) {
-    enableValidation(popup, onSubmit);
-  } 
-  popup.addEventListener('click', closePopupByClick);
-  document.addEventListener('keydown', closePopupByKey);
-}
-
-const removePopupListeners = (popup) => {
-  popup.removeEventListener('click', closePopupByClick);
-  document.removeEventListener('keydown', closePopupByKey);
-}
-
 const toggleLike = (evt) => {
   evt.target.classList.toggle("elements__like_active");
-};
-
-const deleteImage = (evt) => {
-  evt.target.closest(".elements__element").remove();
 };
 
 const openImage = (evt) => {
@@ -58,6 +36,14 @@ const openImage = (evt) => {
   image.src =  evt.target.src;
   text.textContent = imageTitle;
   openPopup(popup);
+};
+
+const deleteImage = (evt) => {
+  const placeItem = evt.target.closest(".elements__element");
+  placeItem.querySelector(".elements__like").removeEventListener("click", toggleLike);
+  placeItem.querySelector(".elements__trash-button").removeEventListener("click", deleteImage);
+  placeItem.querySelector(".elements__image").removeEventListener("click", openImage);
+  placeItem.remove();
 };
 
 const createPlace = (item) => {
@@ -74,6 +60,27 @@ const createPlace = (item) => {
   placeItem.querySelector(".elements__image").addEventListener("click", openImage);
   return placeItem;
 };
+
+function initPopup(popup, onSubmit=false) {
+  const closeButton = popup.querySelector(".popup__close-button");
+  popup.classList.remove("popup_hidden");
+  closeButton.addEventListener("click", () => {
+    closePopup(popup);
+  });
+  if (onSubmit) {
+    enableValidation(popup, onSubmit);
+  } 
+  popup.addEventListener('click', closePopupByClick);
+  document.addEventListener('keydown', closePopupByKey);
+}
+
+
+const removePopupListeners = (popup) => {
+  popup.removeEventListener('click', closePopupByClick);
+  document.removeEventListener('keydown', closePopupByKey);
+}
+
+
 
 const addPlace = (item) => {
   const placeItem = createPlace(item);
