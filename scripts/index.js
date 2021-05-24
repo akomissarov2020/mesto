@@ -40,7 +40,6 @@ const openImage = (evt) => {
   imageInImageView.src = evt.target.src;
   imageInImageView.alt = evt.target.alt;
   textInImageView.textContent = imageTitle;
-  initPopup(popupImageView);
   openPopup(popupImageView);
 };
 
@@ -72,7 +71,7 @@ const addPlace = (item) => {
   document.querySelector(".elements").append(placeItem);
 };
 
-function initPopup(popup, onSubmit=false) {
+function openPopup(popup, onSubmit=false) {
   const closeButton = popup.querySelector(".popup__close-button");
   popup.classList.remove("popup_hidden");
   closeButton.addEventListener("click", closePopupByClick);
@@ -89,9 +88,6 @@ function initPopup(popup, onSubmit=false) {
   } 
   popup.addEventListener('click', closePopupByClick);
   document.addEventListener('keydown', closePopupByKey);
-}
-
-function openPopup(popup) {
   popup.classList.add("popup_opened");
 }
 
@@ -118,8 +114,7 @@ function openAddPlace() {
 function openPopupWithForm(popup, onSubmit=undefined) {
   const formElement = popup.querySelector(".form");
   cleanValidation(formElement);
-  initPopup(popup, onSubmit=onSubmit);
-  openPopup(popup);
+  openPopup(popup, onSubmit=onSubmit);
 }
 
 function submitPlaceAdding(event) {
