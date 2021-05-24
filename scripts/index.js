@@ -7,6 +7,9 @@ const popupEditProfile = document.querySelector(".popup_type_edit-profile");
 const popupAddPlace = document.querySelector(".popup_type_add-place");
 const popupImageView = document.querySelector(".popup_type_view");
 
+const imageInImageView = popupImageView.querySelector(".popup__image");
+const textInImageView = popupImageView.querySelector(".popup__image-text");
+
 const nameInput = document.querySelector("[name='edit-profile-name']");
 const titleInput = document.querySelector("[name='edit-profile-title']");
 const placeName = document.querySelector("[name='add-place-name']");
@@ -21,7 +24,7 @@ const closePopupByKey = (evt) => {
 
 const closePopupByClick = (evt) => {
   if (evt.target.classList.contains("popup") || 
-        evt.target.classList.contains("popup__close-button")) {
+      evt.target.classList.contains("popup__close-button")) {
     const popup = evt.target.closest(".popup");
     closePopup(popup);
   }
@@ -34,13 +37,11 @@ const toggleLike = (evt) => {
 const openImage = (evt) => {
   const element = evt.target.closest(".elements__element");
   const imageTitle = element.querySelector(".elements__title").textContent.trim();
-  const popup = document.querySelector(".popup_type_view");
-  const image = popup.querySelector(".popup__image");
-  const text = popup.querySelector(".popup__image-text");
-  image.src =  evt.target.src;
-  text.textContent = imageTitle;
-  initPopup(popup);
-  openPopup(popup);
+  imageInImageView.src = evt.target.src;
+  imageInImageView.alt = evt.target.alt;
+  textInImageView.textContent = imageTitle;
+  initPopup(popupImageView);
+  openPopup(popupImageView);
 };
 
 const deleteImage = (evt) => {
