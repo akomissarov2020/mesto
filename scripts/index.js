@@ -71,23 +71,12 @@ const addPlace = (item) => {
   document.querySelector(".elements").append(placeItem);
 };
 
-function openPopup(popup, onSubmit=false) {
+function openPopup(popup) {
   const closeButton = popup.querySelector(".popup__close-button");
-  popup.classList.remove("popup_hidden");
   closeButton.addEventListener("click", closePopupByClick);
-  if (onSubmit) {
-    const formSettings = {
-      formSelector: '.popup__form',
-      inputSelector: '.popup__input',
-      submitButtonSelector: '.popup__button',
-      inactiveButtonClass: 'popup__button_disabled',
-      inputErrorClass: 'popup__input_type_error',
-      errorClass: 'popup__error_visible'
-    };
-    enableValidation(popup, onSubmit);
-  } 
   popup.addEventListener('click', closePopupByClick);
   document.addEventListener('keydown', closePopupByKey);
+  popup.classList.remove("popup_hidden");
   popup.classList.add("popup_opened");
 }
 
@@ -114,8 +103,16 @@ function openAddPlace() {
 function openPopupWithForm(popup, onSubmit=undefined) {
   const formElement = popup.querySelector(".form");
   cleanValidation(formElement);
-  openPopup(popup, onSubmit=onSubmit);
+  openPopup(popup);
+  formElement.addEventListener('submit', onSubmit);
 }
+
+const cleanValidation = (formElement) => {
+  const inputList = Array.from(formElement.querySelectorAll('.form__field'));
+  inputList.forEach((inputElement) => {
+    hideInputError(formElement, inputElement);
+  });
+};
 
 function submitPlaceAdding(event) {
   event.preventDefault();
@@ -150,7 +147,15 @@ function submitProfileEdit(event) {
   closePopup(popupEditProfile);
 }
 
-
 initialCards.forEach(addPlace);
 editButton.addEventListener("click", openEditProfile);
 addButton.addEventListener("click", openAddPlace);
+
+const formSettings = {
+  formSelector: '.form',
+  inputSelector: '.form__field',
+  submitButtonSelector: '.form__save-button',
+  inactiveButtonClass: 'form__save-button_inactive',
+  inputErrorClass: 'form__field_invalid'
+};
+enableValidation(formSettings);
