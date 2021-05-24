@@ -9,6 +9,8 @@ const popupImageView = document.querySelector(".popup_type_view");
 
 const nameInput = document.querySelector("[name='edit-profile-name']");
 const titleInput = document.querySelector("[name='edit-profile-title']");
+const placeName = document.querySelector("[name='add-place-name']");
+const placeLink = document.querySelector("[name='add-place-link']");
 
 const closePopupByKey = (evt) => {
   if (evt.key === "Escape") {
@@ -77,6 +79,14 @@ function initPopup(popup, onSubmit=false) {
   popup.classList.remove("popup_hidden");
   closeButton.addEventListener("click", closePopupByButton);
   if (onSubmit) {
+    const formSettings = {
+      formSelector: '.popup__form',
+      inputSelector: '.popup__input',
+      submitButtonSelector: '.popup__button',
+      inactiveButtonClass: 'popup__button_disabled',
+      inputErrorClass: 'popup__input_type_error',
+      errorClass: 'popup__error_visible'
+    };
     enableValidation(popup, onSubmit);
   } 
   popup.addEventListener('click', closePopupByClick);
@@ -98,14 +108,55 @@ function closePopup(popup) {
 function openEditProfile() {
   nameInput.value = profileName.textContent.trim();
   titleInput.value = profileTitle.textContent.trim();
-  initPopup(popupEditProfile, onSubmit=submitProfileEdit);
-  openPopup(popupEditProfile);
+  openPopupWithForm(popupEditProfile, onSubmit=submitProfileEdit);
 }
 
 function openAddPlace() {
-  initPopup(popupAddPlace, onSubmit=submitPlaceAdding);
-  openPopup(popupAddPlace);
+  placeName.value = "";
+  placeLink.value = "";
+  openPopupWithForm(popupAddPlace, onSubmit=submitPlaceAdding);
 }
+
+function openPopupWithForm(popup, onSubmit=undefined) {
+  const formElement = popup.querySelector(".form");
+  cleanValidation(formElement);
+  initPopup(popup, onSubmit=onSubmit);
+  openPopup(popup);
+}
+
+function submitPlaceAdding(event) {
+  event.preventDefault();
+  const form = event.target.closest(".form");
+  const inputList = Array.from(form.querySelectorAll('.form__field'));
+  if (hasInvalidInput(inputList)) {
+    return
+  }
+  const item = {
+    'name': placeName.value.trim(),
+    'link': placeLink.value.trim()
+  };
+  const placeItem = createPlace(item);
+  document.querySelector(".elements").prepend(placeItem);
+  form.reset();
+  closePopup(popupAddPlace);
+}
+
+function updateProfile() {
+  profileName.textContent = nameInput.value.trim();
+  profileTitle.textContent = titleInput.value.trim();
+}
+
+function submitProfileEdit(event) {
+  event.preventDefault();
+  const form = event.target.closest(".form");
+  const inputList = Array.from(form.querySelectorAll('.form__field'));
+  if (hasInvalidInput(inputList)) {
+    return
+  }
+  updateProfile();
+  closePopup(popupEditProfile);
+}
+
 
 initialCards.forEach(addPlace);
 editButton.addEventListener("click", openEditProfile);
