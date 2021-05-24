@@ -20,14 +20,11 @@ const closePopupByKey = (evt) => {
 };
 
 const closePopupByClick = (evt) => {
-  if (evt.target.classList.contains("popup")) {
-    closePopup(evt.target);
+  if (evt.target.classList.contains("popup") || 
+        evt.target.classList.contains("popup__close-button")) {
+    const popup = evt.target.closest(".popup");
+    closePopup(popup);
   }
-};
-
-const closePopupByButton = (evt) => {
-  const popup = evt.target.closest(".popup");
-  closePopup(popup);
 };
 
 const toggleLike = (evt) => {
@@ -77,7 +74,7 @@ const addPlace = (item) => {
 function initPopup(popup, onSubmit=false) {
   const closeButton = popup.querySelector(".popup__close-button");
   popup.classList.remove("popup_hidden");
-  closeButton.addEventListener("click", closePopupByButton);
+  closeButton.addEventListener("click", closePopupByClick);
   if (onSubmit) {
     const formSettings = {
       formSelector: '.popup__form',
@@ -101,7 +98,7 @@ function closePopup(popup) {
   popup.classList.remove("popup_opened");
   const closeButton = popup.querySelector(".popup__close-button");
   popup.removeEventListener('click', closePopupByClick);
-  closeButton.removeEventListener("click", closePopupByButton);
+  closeButton.removeEventListener("click", closePopupByClick);
   document.removeEventListener('keydown', closePopupByKey);
 }
 
