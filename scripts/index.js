@@ -112,6 +112,8 @@ const cleanValidation = (formElement) => {
   inputList.forEach((inputElement) => {
     hideInputError(formElement, inputElement);
   });
+  const buttonElement = formElement.querySelector('.form__save-button');
+  toggleButtonState(inputList, buttonElement, 'form__save-button_inactive');
 };
 
 function submitPlaceAdding(event) {
