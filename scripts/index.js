@@ -73,7 +73,6 @@ const addPlace = (item) => {
 
 function openPopup(popup) {
   const closeButton = popup.querySelector(".popup__close-button");
-  closeButton.addEventListener("click", closePopupByClick);
   popup.addEventListener('click', closePopupByClick);
   document.addEventListener('keydown', closePopupByKey);
   popup.classList.remove("popup_hidden");
@@ -84,7 +83,6 @@ function closePopup(popup) {
   popup.classList.remove("popup_opened");
   const closeButton = popup.querySelector(".popup__close-button");
   popup.removeEventListener('click', closePopupByClick);
-  closeButton.removeEventListener("click", closePopupByClick);
   document.removeEventListener('keydown', closePopupByKey);
 }
 
@@ -95,8 +93,8 @@ function openEditProfile() {
 }
 
 function openAddPlace() {
-  placeName.value = "";
-  placeLink.value = "";
+  const form = popupAddPlace.querySelector(".form");
+  form.reset();
   openPopupWithForm(popupAddPlace, onSubmit=submitPlaceAdding);
 }
 
@@ -119,10 +117,6 @@ const cleanValidation = (formElement) => {
 function submitPlaceAdding(event) {
   event.preventDefault();
   const form = event.target.closest(".form");
-  const inputList = Array.from(form.querySelectorAll('.form__field'));
-  if (hasInvalidInput(inputList)) {
-    return
-  }
   const item = {
     'name': placeName.value.trim(),
     'link': placeLink.value.trim()
@@ -141,10 +135,6 @@ function updateProfile() {
 function submitProfileEdit(event) {
   event.preventDefault();
   const form = event.target.closest(".form");
-  const inputList = Array.from(form.querySelectorAll('.form__field'));
-  if (hasInvalidInput(inputList)) {
-    return
-  }
   updateProfile();
   closePopup(popupEditProfile);
 }
