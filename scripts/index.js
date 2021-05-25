@@ -134,7 +134,6 @@ function updateProfile() {
 
 function submitProfileEdit(event) {
   event.preventDefault();
-  const form = event.target.closest(".form");
   updateProfile();
   closePopup(popupEditProfile);
 }
