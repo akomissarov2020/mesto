@@ -46,7 +46,6 @@ class FormValidator {
 
   _hasInvalidInput(inputList) {
     return inputList.some(inputElement => {
-      console.log(inputElement.validity.valid, inputElement);
       return !inputElement.validity.valid;
     });
   }
