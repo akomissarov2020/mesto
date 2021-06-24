@@ -3,9 +3,6 @@ const addButton = document.querySelector(".profile__add-button");
 const profileNameSelector = ".profile__name";
 const profileTitleSelector = ".profile__title";
 
-const popupTitle = document.querySelector(".popup__image-text");
-const popupImage = document.querySelector(".popup__image");
-
 const popupEditProfileSelector = ".popup_type_edit-profile";
 const popupAddPlaceSelector = ".popup_type_add-place";
 const popupImageViewSelector = ".popup_type_view";
@@ -29,6 +26,4 @@ export {editButton,
         popupImageViewSelector,
         nameInput,
         titleInput,
-        popupTitle,
-        popupImage,
         formSettings};
