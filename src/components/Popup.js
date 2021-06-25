@@ -24,7 +24,7 @@ export default class Popup {
 
   _handleEscClose(evt) {
     if (evt.key === "Escape") {
-      this._popup.classList.remove("popup_opened");
+      this._close();
     }
   }
 

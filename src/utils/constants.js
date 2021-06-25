@@ -10,6 +10,18 @@ const popupImageViewSelector = ".popup_type_view";
 const nameInput = document.querySelector("[name='edit-profile-name']");
 const titleInput = document.querySelector("[name='edit-profile-title']");
 
+
+const addPlaceForm = document.querySelector("[name='add-place']");
+const editProfileForm = document.querySelector("[name='edit-profile']");
+
+const elementsSelector = ".elements";
+const nameFieldName = "edit-profile-name";
+const titleFieldName = "edit-profile-title";
+const placeNameFieldName = "add-place-name";
+const placeLinkFieldName = "add-place-link";
+
+const placeTemplateSelector = "#place";
+
 const formSettings = {
         inputSelector: '.form__field',
         submitButtonSelector: '.form__save-button',
@@ -19,11 +31,19 @@ const formSettings = {
 
 export {editButton, 
         addButton,
+        placeTemplateSelector,
+        nameFieldName,
+        titleFieldName,
+        placeNameFieldName,
+        placeLinkFieldName,
         profileNameSelector,
         profileTitleSelector,
         popupEditProfileSelector,
         popupAddPlaceSelector,
         popupImageViewSelector,
+        addPlaceForm,
+        editProfileForm,
+        elementsSelector,
         nameInput,
         titleInput,
         formSettings};

@@ -1,16 +1,14 @@
 import Popup from "./Popup.js";
-import FormValidator from "../components/FormValidator.js";
-import { formSettings } from "../utils/constants.js";
 
 export default class PopupWithForm extends Popup {
 
-  constructor(popupSelector, submitCallback) {
+  constructor(popupSelector, formValidator, submitCallback) {
     super(popupSelector);
     this._submitButtonSelector = '.form__save-button';
     this._inactiveButtonClass = 'form__save-button_inactive';
     this._submitCallback = submitCallback;
     this._form = document.querySelector(popupSelector).querySelector('.form');
-    this._formValidator = new FormValidator(formSettings, this._form);
+    this._formValidator = formValidator;
     this._formValidator.enableValidation();
   }
 
@@ -26,9 +24,7 @@ export default class PopupWithForm extends Popup {
   }
 
   _close() {
-    if (this._form.name === "add-place") {
-      this._form.reset();
-    }
+    this._form.reset();
     this._formValidator.clearErrors();
     super._close();
   }
