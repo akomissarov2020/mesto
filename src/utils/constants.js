@@ -8,6 +8,7 @@ const popupEditProfileSelector = ".popup_type_edit-profile";
 const popupAddPlaceSelector = ".popup_type_add-place";
 const popupImageViewSelector = ".popup_type_view";
 const popupEditAvatarSelector = ".popup_type_edit-avatar";
+const PopupWithConfirmSelector = ".popup_type_with-confirm";
 
 const nameInput = document.querySelector("[name='edit-profile-name']");
 const titleInput = document.querySelector("[name='edit-profile-title']");
@@ -16,6 +17,11 @@ const titleInput = document.querySelector("[name='edit-profile-title']");
 const addPlaceForm = document.querySelector("[name='add-place']");
 const editProfileForm = document.querySelector("[name='edit-profile']");
 const editAvatarForm = document.querySelector("[name='edit-avatar']");
+
+const saveButtonAvatar = document.querySelector(".form__save-button-avatar");
+const saveButtonProfile = document.querySelector(".form__save-button-profile");
+const saveButtonPlace = document.querySelector(".form__save-button-place");
+
 
 const elementsSelector = ".elements";
 const nameFieldName = "edit-profile-name";
@@ -51,9 +57,13 @@ export {editButton,
         popupAddPlaceSelector,
         popupImageViewSelector,
         popupEditAvatarSelector,
+        PopupWithConfirmSelector,
         addPlaceForm,
         editProfileForm,
         editAvatarForm,
+        saveButtonAvatar,
+        saveButtonProfile,
+        saveButtonPlace,
         elementsSelector,
         nameInput,
         titleInput,

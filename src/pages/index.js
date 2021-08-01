@@ -17,17 +17,22 @@ import {editButton,
       popupAddPlaceSelector,
       popupImageViewSelector,
       popupEditAvatarSelector,
+      PopupWithConfirmSelector,
       formSettings,
       addPlaceForm,
       editAvatarForm,
       editProfileForm,
       elementsSelector,
       nameInput,
+      saveButtonAvatar,
+      saveButtonProfile,
+      saveButtonPlace,
       titleInput} from "../utils/constants.js";
 import UserInfo from "../components/UserInfo.js";
 import Api from "../components/Api.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import PopupWithForm from "../components/PopupWithForm.js";
+import PopupWithConfirm from "../components/PopupWithConfirm.js";
 import Section from "../components/Section.js";
 import FormValidator from "../components/FormValidator.js";
 
@@ -37,26 +42,15 @@ function submitProfileEdit(data) {
   userInfo.setUserInfo({name: name, info: info});
   nameInput.value = name;
   titleInput.value = info;
-
+  saveButtonProfile.textContent = "Cохранение...";
   api.updateUserInfo({name: name, info: info})
     .then((res) => {
       console.log(res);
     })
-    .catch(res => console.log(res));
-}
-
-function addCard(item) {
-  const card = new Card(item, placeTemplateSelector, popupImageView.open.bind(popupImageView));
-  const placeItem = card.createPlace();
-  section.prependItem(placeItem);
-}
-
-function submitPlaceAdding(data) {
-  const item = {
-    'name': data[placeNameFieldName],
-    'link': data[placeLinkFieldName]
-  };
-  addCard(item);
+    .catch(res => console.log(res))
+    .finally(res => {
+      saveButtonProfile.textContent = "Сохранить";
+    });
 }
 
 function editAvatar(evt) {
@@ -70,18 +64,54 @@ function openEditProfile(evt) {
   popupEditProfile.open();
 }
 
-function openAddPlace(evt) {
-  popupAddPlace.open();
-}
+
+
 
 function submitEditAvatar(data) {
   const link = data[avatarUrlFieldName];
   userInfo.setUserAvatar(link);
+  saveButtonAvatar.textContent = "Cохранение...";
   api.updateAvatar({link: link})
     .then((res) => {
       console.log(res);
     })
-    .catch(res => console.log(res));
+    .catch(res => console.log(res))
+    .finally(res => {
+      saveButtonAvatar.textContent = "Сохранить";
+    });
+}
+
+function addCard(item) {
+  saveButtonPlace.textContent = "Создание...";
+  api.insertNewCard(item)
+  .then(data => {
+    console.log(data);
+    const card = new Card(data, 
+      ownerId, 
+      placeTemplateSelector, 
+      popupImageView.open.bind(popupImageView),
+      likeHandler, 
+      dislikeHandler, 
+      handleDeleteCard);
+    const placeItem = card.createPlace();
+    section.prependItem(placeItem);
+  })
+  .catch(err => console.log(err))
+  .finally(res => {
+    saveButtonPlace.textContent = "Создать";
+  });
+}
+
+function submitPlaceAdding(data) {
+  const item = {
+    'name': data[placeNameFieldName],
+    'link': data[placeLinkFieldName]
+  };
+  addCard(item);
+}
+
+function openAddPlace(evt) {
+  popupAddPlace.open();
 }
 
 const api = new Api({
@@ -103,17 +133,24 @@ api.getUserInfo()
     console.log(err);
 });
 
-
-function like() {
-
+function likeHandler(id) {
+  api.putLike(id)
+  .then((res) => {
+    console.log(res);
+  })
+  .catch((err) => {
+    console.log(err);
+  });
 }
 
-function dislike() {
-
-}
-
-function handleDeleteCard() {
-
+function dislikeHandler(id) {
+  api.deleteLike(id)
+  .then((res) => {
+    console.log(res);
+  })
+  .catch((err) => {
+    console.log(err);
+  });
 }
 
 const section = new Section({items: [], renderer: (item)=>{
@@ -122,15 +159,13 @@ const section = new Section({items: [], renderer: (item)=>{
 
 api.getInitialCards()
   .then((initialCards) => { 
-    console.log(initialCards);
-
     initialCards.forEach(card => {
       let cardItem = new Card(card, 
                             ownerId, 
                             placeTemplateSelector, 
                             popupImageView.open.bind(popupImageView),
-                            like, 
-                            dislike, 
+                            likeHandler, 
+                            dislikeHandler, 
                             handleDeleteCard);
       const placeItem = cardItem.createPlace();
       section.prependItem(placeItem);
@@ -159,3 +194,10 @@ addButton.addEventListener("click", openAddPlace);
 const formValidatorEditAvatar = new FormValidator(formSettings, editAvatarForm);
 const popupEditAvatar = new PopupWithForm(popupEditAvatarSelector, formValidatorEditAvatar, submitEditAvatar);
 avatarButton.addEventListener("click", editAvatar);
+
+
+function handleDeleteCard(id, card) {
+  popupWithConfirm.open(id, card);
+}
+
+const popupWithConfirm = new PopupWithConfirm(PopupWithConfirmSelector); 
