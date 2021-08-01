@@ -1,9 +1,18 @@
 export default class Card {
-  constructor(item, templateSelector, handleCardClick) {
+  constructor(item, ownerId, templateSelector, handleCardClick, like, dislike, handleDeleteCard) {
     this._name = item.name;
     this._link = item.link;
+    this._likes = item.likes.length;
+    this._likesItems = item.likes;
     this._templateSelector = templateSelector;
+    this._ownerId = ownerId;
+    this._cardOwnerId = item.owner._id;
+    this._id = item._id;
+    // external methods
+    this._like = like;
+    this._dislike = dislike;
     this._handleCardClick = handleCardClick;
+    this._handleDeleteCard = handleDeleteCard;
   }
 
   _deleteImage(evt) {
@@ -37,4 +46,8 @@ export default class Card {
     this._addEventListeners(placeItem);
     return placeItem;
   };
+
+  _hideRemoveButton() {
+    
+  }
 }
