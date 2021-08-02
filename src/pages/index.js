@@ -64,9 +64,6 @@ function openEditProfile(evt) {
   popupEditProfile.open();
 }
 
-
-
-
 function submitEditAvatar(data) {
   const link = data[avatarUrlFieldName];
   userInfo.setUserAvatar(link);
@@ -133,20 +130,20 @@ api.getUserInfo()
     console.log(err);
 });
 
-function likeHandler(id) {
+function likeHandler(id, updateLikesCallback) {
   api.putLike(id)
   .then((res) => {
-    console.log(res);
+    updateLikesCallback(res.likes);
   })
   .catch((err) => {
     console.log(err);
   });
 }
 
-function dislikeHandler(id) {
+function dislikeHandler(id, updateLikesCallback) {
   api.deleteLike(id)
   .then((res) => {
-    console.log(res);
+    updateLikesCallback(res.likes);
   })
   .catch((err) => {
     console.log(err);
