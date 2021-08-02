@@ -168,7 +168,7 @@ api.getInitialCards()
                             dislikeHandler, 
                             handleDeleteCard);
       const placeItem = cardItem.createPlace();
-      section.prependItem(placeItem);
+      section.addItem(placeItem);
     });
     
   })
@@ -196,8 +196,19 @@ const popupEditAvatar = new PopupWithForm(popupEditAvatarSelector, formValidator
 avatarButton.addEventListener("click", editAvatar);
 
 
+function deleteCard(id) {
+  api.deletePhoto(id)
+  .then((res) => {
+    console.log(res);
+  })
+  .catch((err) => {
+    console.log(err);
+  });
+}
+
 function handleDeleteCard(id, card) {
-  popupWithConfirm.open(id, card);
+  popupWithConfirm.open(id, card, deleteCard);
+  
 }
 
 const popupWithConfirm = new PopupWithConfirm(PopupWithConfirmSelector); 
