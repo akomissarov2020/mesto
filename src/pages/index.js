@@ -39,8 +39,6 @@ function submitProfileEdit(data) {
     api.updateUserInfo({name: name, info: info})
     .then((res) => {
       userInfo.setUserInfo(res);
-      nameInput.value = name;
-      titleInput.value = info;  
       resolve(res);
     })
     .catch((err) => {
@@ -74,18 +72,23 @@ function submitEditAvatar(data) {
   });
 }
 
+function createCard(data) {
+  const card = new Card(data, 
+    ownerId, 
+    placeTemplateSelector, 
+    popupImageView.open.bind(popupImageView),
+    likeHandler, 
+    dislikeHandler, 
+    handleDeleteCard);
+  const placeItem = card.createPlace();
+  return placeItem;
+}
+
 function addCard(item) {
   return new Promise(function(resolve, reject) {
     api.insertNewCard(item)
     .then(data => {
-      const card = new Card(data, 
-        ownerId, 
-        placeTemplateSelector, 
-        popupImageView.open.bind(popupImageView),
-        likeHandler, 
-        dislikeHandler, 
-        handleDeleteCard);
-      const placeItem = card.createPlace();
+      const placeItem = createCard(data);
       section.prependItem(placeItem);
       resolve(data);
     })
@@ -153,17 +156,9 @@ const section = new Section({items: [], renderer: (item)=>{
 api.getInitialCards()
   .then((initialCards) => { 
     initialCards.forEach(card => {
-      let cardItem = new Card(card, 
-                            ownerId, 
-                            placeTemplateSelector, 
-                            popupImageView.open.bind(popupImageView),
-                            likeHandler, 
-                            dislikeHandler, 
-                            handleDeleteCard);
-      const placeItem = cardItem.createPlace();
+      const placeItem = createCard(card);
       section.addItem(placeItem);
     });
-    
   })
   .catch((err) => {
     console.log(err);

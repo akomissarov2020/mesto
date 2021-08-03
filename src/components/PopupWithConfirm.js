@@ -51,7 +51,7 @@ export default class PopupWithConfirm extends Popup {
   }
 
   _closeWithoutSubmit(evt) {
-      super.close();
+      super._closeWithoutSubmit();
       this._form.removeEventListener('submit', this._deleteCardFunctionBunding);
   }
 }
