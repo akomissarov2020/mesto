@@ -36,11 +36,11 @@ function submitProfileEdit(data) {
   return new Promise(function(resolve, reject) {
     const name = data[nameFieldName];
     const info = data[titleFieldName]; 
-    userInfo.setUserInfo({name: name, info: info});
-    nameInput.value = name;
-    titleInput.value = info;
     api.updateUserInfo({name: name, info: info})
     .then((res) => {
+      userInfo.setUserInfo(res);
+      nameInput.value = name;
+      titleInput.value = info;  
       resolve(res);
     })
     .catch((err) => {
@@ -63,9 +63,9 @@ function openEditProfile(evt) {
 function submitEditAvatar(data) {
   return new Promise(function(resolve, reject) {
     const link = data[avatarUrlFieldName];
-    userInfo.setUserAvatar(link);
     api.updateAvatar({link: link})
     .then((res) => {
+      userInfo.setUserInfo(res);
       resolve(res);
     })
     .catch((err) => {
@@ -118,12 +118,12 @@ const api = new Api({
 let ownerId = null;
 
 api.getUserInfo()
-  .then((data) => {
-    userInfo.initUser(data);
-    ownerId = data._id;
-  })
-  .catch((err) => {
-    console.log(err);
+.then((data) => {
+  userInfo.setUserInfo(data);
+  ownerId = data._id;
+})
+.catch((err) => {
+  console.log(err);
 });
 
 function likeHandler(id, updateLikesCallback) {
