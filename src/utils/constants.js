@@ -18,11 +18,6 @@ const addPlaceForm = document.querySelector("[name='add-place']");
 const editProfileForm = document.querySelector("[name='edit-profile']");
 const editAvatarForm = document.querySelector("[name='edit-avatar']");
 
-const saveButtonAvatar = document.querySelector(".form__save-button-avatar");
-const saveButtonProfile = document.querySelector(".form__save-button-profile");
-const saveButtonPlace = document.querySelector(".form__save-button-place");
-
-
 const elementsSelector = ".elements";
 const nameFieldName = "edit-profile-name";
 const titleFieldName = "edit-profile-title";
@@ -61,9 +56,6 @@ export {editButton,
         addPlaceForm,
         editProfileForm,
         editAvatarForm,
-        saveButtonAvatar,
-        saveButtonProfile,
-        saveButtonPlace,
         elementsSelector,
         nameInput,
         titleInput,

@@ -1,5 +1,4 @@
 import "./index.css";
-import {initialCards} from "../utils/cards_data.js";
 import Card from "../components/Cards.js";
 import {editButton, 
       addButton,
@@ -24,9 +23,6 @@ import {editButton,
       editProfileForm,
       elementsSelector,
       nameInput,
-      saveButtonAvatar,
-      saveButtonProfile,
-      saveButtonPlace,
       titleInput} from "../utils/constants.js";
 import UserInfo from "../components/UserInfo.js";
 import Api from "../components/Api.js";
@@ -37,20 +33,20 @@ import Section from "../components/Section.js";
 import FormValidator from "../components/FormValidator.js";
 
 function submitProfileEdit(data) {
-  const name = data[nameFieldName];
-  const info = data[titleFieldName]; 
-  userInfo.setUserInfo({name: name, info: info});
-  nameInput.value = name;
-  titleInput.value = info;
-  saveButtonProfile.textContent = "Cохранение...";
-  api.updateUserInfo({name: name, info: info})
+  return new Promise(function(resolve, reject) {
+    const name = data[nameFieldName];
+    const info = data[titleFieldName]; 
+    userInfo.setUserInfo({name: name, info: info});
+    nameInput.value = name;
+    titleInput.value = info;
+    api.updateUserInfo({name: name, info: info})
     .then((res) => {
-      console.log(res);
+      resolve(res);
     })
-    .catch(res => console.log(res))
-    .finally(res => {
-      saveButtonProfile.textContent = "Сохранить";
+    .catch((err) => {
+      reject(err)
     });
+  });
 }
 
 function editAvatar(evt) {
@@ -65,37 +61,37 @@ function openEditProfile(evt) {
 }
 
 function submitEditAvatar(data) {
-  const link = data[avatarUrlFieldName];
-  userInfo.setUserAvatar(link);
-  saveButtonAvatar.textContent = "Cохранение...";
-  api.updateAvatar({link: link})
+  return new Promise(function(resolve, reject) {
+    const link = data[avatarUrlFieldName];
+    userInfo.setUserAvatar(link);
+    api.updateAvatar({link: link})
     .then((res) => {
-      console.log(res);
+      resolve(res);
     })
-    .catch(res => console.log(res))
-    .finally(res => {
-      saveButtonAvatar.textContent = "Сохранить";
+    .catch((err) => {
+      reject(err)
     });
+  });
 }
 
 function addCard(item) {
-  saveButtonPlace.textContent = "Создание...";
-  api.insertNewCard(item)
-  .then(data => {
-    console.log(data);
-    const card = new Card(data, 
-      ownerId, 
-      placeTemplateSelector, 
-      popupImageView.open.bind(popupImageView),
-      likeHandler, 
-      dislikeHandler, 
-      handleDeleteCard);
-    const placeItem = card.createPlace();
-    section.prependItem(placeItem);
-  })
-  .catch(err => console.log(err))
-  .finally(res => {
-    saveButtonPlace.textContent = "Создать";
+  return new Promise(function(resolve, reject) {
+    api.insertNewCard(item)
+    .then(data => {
+      const card = new Card(data, 
+        ownerId, 
+        placeTemplateSelector, 
+        popupImageView.open.bind(popupImageView),
+        likeHandler, 
+        dislikeHandler, 
+        handleDeleteCard);
+      const placeItem = card.createPlace();
+      section.prependItem(placeItem);
+      resolve(data);
+    })
+    .catch((err) => {
+      reject(err)
+    });
   });
 }
 
@@ -192,20 +188,20 @@ const formValidatorEditAvatar = new FormValidator(formSettings, editAvatarForm);
 const popupEditAvatar = new PopupWithForm(popupEditAvatarSelector, formValidatorEditAvatar, submitEditAvatar);
 avatarButton.addEventListener("click", editAvatar);
 
-
 function deleteCard(id) {
-  api.deletePhoto(id)
-  .then((res) => {
-    console.log(res);
-  })
-  .catch((err) => {
-    console.log(err);
+  return new Promise(function(resolve, reject) {
+    api.deletePhoto(id)
+    .then((res) => {
+      resolve(res);
+    })
+    .catch((err) => {
+      reject(err)
+    });
   });
 }
 
 function handleDeleteCard(id, card) {
   popupWithConfirm.open(id, card, deleteCard);
-  
 }
 
 const popupWithConfirm = new PopupWithConfirm(PopupWithConfirmSelector); 

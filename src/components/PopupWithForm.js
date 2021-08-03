@@ -4,10 +4,11 @@ export default class PopupWithForm extends Popup {
 
   constructor(popupSelector, formValidator, submitCallback) {
     super(popupSelector);
-    this._submitButtonSelector = '.form__save-button';
-    this._inactiveButtonClass = 'form__save-button_inactive';
     this._submitCallback = submitCallback;
-    this._form = document.querySelector(popupSelector).querySelector('.form');
+    this._form = this._popup.querySelector('.form');
+    this._inputList = this._form.querySelectorAll(".form__field");
+    this._saveButton = this._form.querySelector(".form__save-button");
+    this._saveButtonDefaultText = this._saveButton.textContent;
     this._formValidator = formValidator;
     this._formValidator.enableValidation();
   }
@@ -19,14 +20,25 @@ export default class PopupWithForm extends Popup {
 
   _onSubmit(evt) {
     evt.preventDefault();
-    this._submitCallback(this._getInputValues());
-    this._close();
+    this._setLoadingStatus("loading");
+    this._submitCallback(this._getInputValues())
+    .then(res => {
+      this.close();
+    })
+    .catch(err => {
+      console.log(err);
+      this._setLoadingStatus("error");
+    })
+    .finally(res => {
+      this._setLoadingStatus("default");
+    });
   }
 
-  _close() {
+  close() {
     this._form.reset();
     this._formValidator.clearErrors();
-    super._close();
+    this._setLoadingStatus("default");
+    super.close();
   }
 
   _setEventListeners() {
@@ -40,8 +52,17 @@ export default class PopupWithForm extends Popup {
     super._removeEventListeners();
   }
 
+  _setLoadingStatus(status) {
+    if (status === "loading") {
+      this._saveButton.textContent = "Сохранение...";
+    } else if (status === "default") {
+      this._saveButton.textContent = this._saveButtonDefaultText;
+    } else {
+      this._saveButton.textContent = "Ошибка";
+    }
+  }
+
   _getInputValues() {
-    this._inputList = this._form.querySelectorAll(".form__field");
     this._formValues = {};
     this._inputList.forEach(item => {
       this._formValues[item.name] = item.value;

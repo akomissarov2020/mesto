@@ -13,6 +13,7 @@ export default class Card {
     this._externalDisikeHandler = dislike;
     this._handleCardClick = handleCardClick;
     this._handleDeleteCard = handleDeleteCard;
+    this._openImageFunctionBunding = this._openImage.bind(this);
   }
 
   _deleteImage(evt) {
@@ -32,10 +33,14 @@ export default class Card {
     }
   };
 
+  _openImage(evt) {
+    this._handleCardClick(this._name, this._link);
+  }
+
   _addEventListeners() {
     this._likeButton.addEventListener("click", this._toggleLike.bind(this));
     this._placeItem.querySelector(".elements__trash-button").addEventListener("click", this._deleteImage.bind(this));
-    this._placeItem.querySelector(".elements__image").addEventListener("click", this._handleCardClick);
+    this._placeItem.querySelector(".elements__image").addEventListener("click", this._openImageFunctionBunding);
   };
 
   createPlace() {
