@@ -14,7 +14,6 @@ export default class Popup {
     if (evt.target.classList.contains("popup") || 
       evt.target.classList.contains("popup__close-button")) {
         this.close();
-        return true;
     }
   }
 

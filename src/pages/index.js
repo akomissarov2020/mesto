@@ -161,39 +161,19 @@ const section = new Section({items: [], renderer: (placeItem)=>{
   section.addItem(placeItem);
 }}, elementsSelector);
 
-
-
-const getUserInfo = new Promise(function(resolve, reject) {
-  api.getUserInfo()
-  .then((data) => {
-    userInfo.setUserInfo(data);
-    ownerId = data._id;
-    resolve(data);
-  })
-  .catch((err) => {
-    reject(err);
+Promise.all([api.getUserInfo(),  api.getInitialCards()])
+.then(([userData, initialCards]) => {
+  userInfo.setUserInfo(userData);
+  ownerId = userData._id;
+  const renderItems = [];
+  initialCards.forEach(card => {
+    const placeItem = createCard(card);
+    renderItems.push(placeItem);
   });
-});
-
-const getInitialCards = new Promise(function(resolve, reject) {
-  api.getInitialCards()
-  .then((initialCards) => { 
-    const renderItems = [];
-    initialCards.forEach(card => {
-      const placeItem = createCard(card);
-      renderItems.push(placeItem);
-    });
-    resolve(renderItems);
-  })
-  .catch((err) => {
-    reject(err);
-  });
-});
-
-Promise.all([getUserInfo, getInitialCards])
-.then((res) => {
-  const renderItems = res[1];
   section.renderItems(renderItems);
+})
+.catch((err) => {
+  console.log(err);
 });
 
 const popupImageView = new PopupWithImage(popupImageViewSelector);
